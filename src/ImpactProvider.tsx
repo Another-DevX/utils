@@ -41,7 +41,7 @@ export type RewardsType = {
     currentEpoch: number;
     claimable: number;
     estimated: number;
-    donation?: string;
+    donation?: bigint;
     initialised: boolean;
 };
 

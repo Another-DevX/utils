@@ -10,7 +10,6 @@ import { internalUseTransaction } from './internalUseTransaction';
 import { updatePACTBalance } from './usePACTBalance';
 import React, { useEffect } from 'react';
 import type { BaseProvider } from '@ethersproject/providers';
-import { toToken } from './toToken';
 
 export const updateRewards = async (provider: BaseProvider, networkId: number, address: string) => {
     if (!address) {
@@ -53,6 +52,7 @@ export const useRewards = () => {
 
             setRewards(rewards => ({
                 ...rewards,
+                donation: BigInt(0),
                 initialised: false
             }));
             const updatedRewards = await updateRewards(provider, networkId, address);
@@ -80,7 +80,8 @@ export const useRewards = () => {
     const estimateDonationRewards = async (value: any) => {
         const { donationMiner } = getContracts(provider, networkId);
         const estimatedDonationReward = await donationMiner.estimateNewDonationClaimableRewardAdvance(value);
-        const result = toToken(estimatedDonationReward);
+        const result = BigInt(estimatedDonationReward) / BigInt(3);
+
         setRewards(rewards => ({
             ...rewards,
             donation: result,
