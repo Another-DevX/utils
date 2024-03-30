@@ -77,18 +77,6 @@ export const useRewards = () => {
         }
     };
 
-    const estimateDonationRewards = async (value: any) => {
-        const { donationMiner } = getContracts(provider, networkId);
-        const estimatedDonationReward = await donationMiner.estimateNewDonationClaimableRewardAdvance(value);
-        const result = BigInt(estimatedDonationReward) / BigInt(3);
-
-        setRewards(rewards => ({
-            ...rewards,
-            donation: result,
-            initialised: true
-        }));
-    };
-
     useEffect(() => {
         if (address) {
             updateRewards(provider, networkId, address).then(updatedRewards =>
@@ -101,5 +89,5 @@ export const useRewards = () => {
         }
     }, [address]);
 
-    return { claim, estimateDonationRewards, rewards };
+    return { claim, rewards };
 };

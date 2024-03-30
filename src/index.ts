@@ -2,6 +2,7 @@ export * from './wallets';
 export * from './pact';
 export * from './community';
 export * from './useDonationMiner';
+export * from './useLoanRewards';
 
 export * from './useCUSDBalance';
 export * from './usePACTBalance';
